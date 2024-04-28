@@ -14,6 +14,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -60,6 +61,7 @@ class SistemaCreateView(LoginRequiredMixin, CreateView):
         ] 
     success_url = reverse_lazy("juego-list")
 
+@login_required
 def sistema_search_view(request):
     if request.method == "GET":
         form = SistemaSearchForm()
@@ -138,6 +140,7 @@ class JuegoCreateView(LoginRequiredMixin, CreateView):
     
     success_url = reverse_lazy("juego-list")
 
+@login_required
 def juego_search_view(request):
     if request.method == "GET":
         form = JuegoSearchForm()
@@ -154,6 +157,8 @@ def juego_search_view(request):
         
 #CRUD RESERVAS
 
+class ReservasListView(LoginRequiredMixin, ListView):
+    pass
 
 # login / logout / Editar usuario / Crear Usuario 1:50
 
