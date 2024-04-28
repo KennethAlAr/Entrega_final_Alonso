@@ -1,0 +1,60 @@
+{% extends 'partidas/base.html' %}
+
+{% block title %}Detalle del Juego{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        Detalle del Juego
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ juego.nombre }}</h5>
+                        {% if juego.disponible %}
+                        <h6 class="card-subtitle mb-2">Disponible</h6>
+                        {% else %}
+                        <h6 class="card-subtitle mb-2">No Disponible</h6>
+                        {% endif %}
+                        <p class="card-text">Juego para {{ juego.numero_de_jugadores }} jugadores</p>
+                        <p class="card-text">Sistema de juego: {{ juego.sistema_de_juego }}</p>
+                        <p class="card-text">Descripción: {{ juego.descripcion | default:"No proporcionado" }}</p>
+                        <p class="card-text">Fecha: {{ juego.fecha | date:"d/m/Y" }}</p>
+                        <p class="card-text">Hora de inicio: {{ juego.hora_inicio | date:"H:i" }}</p>
+                        <p class="card-text">Hora de fin: {{ juego.hora_fin | date:"H:i" }}</p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <h3>Jugadores en esta partida</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre de Jugador</th>
+                                <th scope="col">Raza</th>
+                                <th scope="col">Clase</th>
+                                <th scope="col">Experiencia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for reserva in juego.reservas.all %}
+                            <tr>
+                                <td>{{ reserva.jugador }}</td>
+                                <td>{{ reserva.raza }}</td>
+                                <td>{{ reserva.clase }}</td>
+                                <td>{{ reserva.get_experiencia_display }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5">No hay jugadores para esta partida.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

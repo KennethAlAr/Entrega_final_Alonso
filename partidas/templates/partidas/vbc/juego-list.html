@@ -1,0 +1,51 @@
+{% extends 'partidas/base.html' %}
+
+{% block title %} Listado de Partidas {% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="mb-0">Partidas</h2>
+            <a href="{% url 'juego-create' %}" class="btn btn-success">Crear Juego</a>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Partida</th>
+                    <th scope="col">Sistema de Juego</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Hora de Inicio</th>
+                    <th scope="col">Hora de Fin</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if todos_los_juegos %}
+                {% for juego in todos_los_juegos %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ juego.nombre }}</td>
+                    <td>{{ juego.sistema_de_juego }}</td>
+                    <td>{{ juego.fecha }}</td>
+                    <td>{{ juego.hora_inicio }}</td>
+                    <td>{{ juego.hora_fin }}</td>
+                    <td>
+                        <a href="{% url 'juego-detail' juego.id %}" class="btn btn-primary btn-sm">Ver</a>
+                        <a href="{% url 'juego-update' juego.id %}" class="btn btn-primary btn-sm">Editar</a>
+                        <a href="{% url 'juego-delete' juego.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="7">No hay Partidas disponibles.</td>
+                </tr>
+                {% endif %}
+
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
