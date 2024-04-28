@@ -13,3 +13,6 @@ class UserEditForm(forms.ModelForm):
 
 class JuegoSearchForm(forms.Form):
     nombre = forms.CharField(max_length=50, required=True, label="Ingresar nombre del juego")
+
+class SistemaSearchForm(forms.Form):
+    nombre = forms.CharField(max_length=50, required=True, label="Ingresar nombre del sistema")

@@ -12,6 +12,12 @@ from .views import (
     UserUpdateView,
     user_creation_view,
     juego_search_view,
+    SistemaListView,
+    SistemaDetailView,
+    SistemaUpdateView,
+    SistemaDeleteView,
+    SistemaCreateView,
+    sistema_search_view,
 )
 
 urlpatterns = [
@@ -26,4 +32,10 @@ urlpatterns = [
     path("logout/", user_logout_view, name='logout'),
     path("editar-perfil/", UserUpdateView.as_view(), name='editar-perfil'),
     path("crear-usuario/", user_creation_view, name='crear-usuario'),
+    path("sistema/list/", SistemaListView.as_view(), name="sistema-list"),
+    path("sistema/create/", SistemaCreateView.as_view(), name="sistema-create"),
+    path("sistema/<int:pk>/detail/", SistemaDetailView.as_view(), name="sistema-detail"),
+    path("sistema/<int:pk>/update/", SistemaUpdateView.as_view(), name="sistema-update"),
+    path("sistema/<int:pk>/delete/", SistemaDeleteView.as_view(), name="sistema-delete"),
+    path("sistema/buscar/", sistema_search_view, name="sistema-search"),
 ]

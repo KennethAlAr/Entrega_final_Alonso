@@ -16,15 +16,15 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             {% if user.is_authenticated %}
             <ul class="navbar-nav">
-                <!-- Dropdown for Reserva -->
+                <!-- Dropdown for Sistema -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkReserva" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Reservas
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkSistema" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sistemas
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkReserva">
-                        <a class="dropdown-item" href="">Todas las Reservas</a>
-                        <a class="dropdown-item" href="">Crear Reserva</a>
-                        <a class="dropdown-item" href="">Buscar Reserva por jugador</a>
+                        <a class="dropdown-item" href="{% url 'sistema-list' %}">Todos los Sistemas de Juego</a>
+                        <a class="dropdown-item" href="{% url 'sistema-create' %}">Crear Sistema de Juego</a>
+                        <a class="dropdown-item" href="{% url 'sistema-search' %}">Buscar Sistema de Juego</a>
                     </div>
                 </li>
                 <!-- Dropdown for Juego -->
@@ -36,6 +36,17 @@
                         <a class="dropdown-item" href="{% url 'juego-list' %}">Todos los Juegos</a>
                         <a class="dropdown-item" href="{% url 'juego-create' %}">Crear Juego</a>
                         <a class="dropdown-item" href="{% url 'juego-search' %}">Buscar Juego</a>
+                    </div>
+                </li>
+                <!-- Dropdown for Reserva -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkReserva" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Reservas
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkReserva">
+                        <a class="dropdown-item" href="">Todas las Reservas</a>
+                        <a class="dropdown-item" href="">Crear Reserva</a>
+                        <a class="dropdown-item" href="">Buscar Reserva por jugador</a>
                     </div>
                 </li>
             </ul>

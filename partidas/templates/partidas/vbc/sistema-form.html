@@ -1,0 +1,28 @@
+{% extends 'partidas/base.html' %}
+
+{% block title %} Listado de Sistemas {% endblock %}
+
+{% block content %}
+<h3>{% if object %}Editar Sistema: {{ object.nombre }}{% else %}Crear Sistema{% endif %}</h3>
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="card shadow-sm">
+                        <div class="card-header">
+                            Datos del Sistema
+                        </div>
+                        <div class="card-body">
+                            <form method="post">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <button type="submit" class="btn btn-primary">Enviar</button>
+                                <a href="{% url 'sistema-list' %}">Cancelar</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

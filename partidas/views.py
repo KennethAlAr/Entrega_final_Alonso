@@ -1,5 +1,5 @@
 from .models import Juego, Reserva, Sistema
-from .forms import UserEditForm, JuegoSearchForm
+from .forms import UserEditForm, JuegoSearchForm, SistemaSearchForm
 from django import forms
 from django.urls import reverse_lazy
 from django.views.generic import(
@@ -19,6 +19,60 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 def home_view(request):
     return render(request, "partidas/home.html")
+
+#CRUD SISTEMAS
+
+class SistemaListView(LoginRequiredMixin, ListView):
+    model = Sistema
+    template_name = "partidas/vbc/sistema-list.html"
+    context_object_name = "todos_los_sistemas"
+
+class SistemaDetailView(LoginRequiredMixin, DetailView):
+    model = Sistema
+    template_name = "partidas/vbc/sistema-detail.html"
+    context_object_name = "sistema"
+
+class SistemaDeleteView(LoginRequiredMixin, DeleteView):
+    model = Sistema
+    template_name = "partidas/vbc/sistema-confirm-delete.html"
+    success_url = reverse_lazy("sistema-list")
+
+class SistemaUpdateView(LoginRequiredMixin, UpdateView):
+    model = Sistema
+    template_name = "partidas/vbc/sistema-form.html"
+    fields = [
+        "nombre",
+        "dado",
+        "base",
+        "descripcion"
+        ]
+    context_object_name = "sistema"
+    success_url = reverse_lazy("sistema-list")
+
+class SistemaCreateView(LoginRequiredMixin, CreateView):
+    model = Sistema
+    template_name = "partidas/vbc/juego-form.html"
+    fields = [
+        "nombre",
+        "dado",
+        "base",
+        "descripcion"
+        ] 
+    success_url = reverse_lazy("juego-list")
+
+def sistema_search_view(request):
+    if request.method == "GET":
+        form = SistemaSearchForm()
+        return render(request, "partidas/vbc/sistema-form-search.html", context={"search_form": form})
+    elif request.method == "POST":
+        form = SistemaSearchForm(request.POST)
+        if form.is_valid():
+            nombre_de_sistema = form.cleaned_data["nombre"]
+            sistemas_encontrados = Sistema.objects.filter(nombre=nombre_de_sistema).all()
+            contexto = {"todos_los_sistemas": sistemas_encontrados}
+            return render(request, "partidas/vbc/sistema-list.html", contexto)
+        else:
+            return render(request, "partidas/vbc/sistema-form-search.html", context={"search_form": form})
 
 #CRUD JUEGOS
 
@@ -97,6 +151,8 @@ def juego_search_view(request):
             return render(request, "partidas/vbc/juego-list.html", contexto)
         else:
             return render(request, "partidas/vbc/juego-form-search.html", context={"search_form": form})
+        
+#CRUD RESERVAS
 
 
 # login / logout / Editar usuario / Crear Usuario 1:50
