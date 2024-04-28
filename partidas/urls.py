@@ -11,6 +11,7 @@ from .views import (
     user_logout_view,
     UserUpdateView,
     user_creation_view,
+    juego_search_view,
 )
 
 urlpatterns = [
@@ -20,6 +21,7 @@ urlpatterns = [
     path("juego/<int:pk>/detail/", JuegoDetailView.as_view(), name="juego-detail"),
     path("juego/<int:pk>/update/", JuegoUpdateView.as_view(), name="juego-update"),
     path("juego/<int:pk>/delete/", JuegoDeleteView.as_view(), name="juego-delete"),
+    path("juego/buscar/", juego_search_view, name="juego-search"),
     path("login/", user_login_view, name='login'),
     path("logout/", user_logout_view, name='logout'),
     path("editar-perfil/", UserUpdateView.as_view(), name='editar-perfil'),

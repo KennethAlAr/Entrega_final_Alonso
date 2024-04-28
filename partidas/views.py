@@ -1,5 +1,5 @@
 from .models import Juego, Reserva, Sistema
-from .forms import UserEditForm
+from .forms import UserEditForm, JuegoSearchForm
 from django import forms
 from django.urls import reverse_lazy
 from django.views.generic import(
@@ -83,6 +83,21 @@ class JuegoCreateView(LoginRequiredMixin, CreateView):
         return form
     
     success_url = reverse_lazy("juego-list")
+
+def juego_search_view(request):
+    if request.method == "GET":
+        form = JuegoSearchForm()
+        return render(request, "partidas/vbc/juego-form-search.html", context={"search_form": form})
+    elif request.method == "POST":
+        form = JuegoSearchForm(request.POST)
+        if form.is_valid():
+            nombre_de_juego = form.cleaned_data["nombre"]
+            juegos_encontrados = Juego.objects.filter(nombre=nombre_de_juego).all()
+            contexto = {"todos_los_juegos": juegos_encontrados}
+            return render(request, "partidas/vbc/juego-list.html", contexto)
+        else:
+            return render(request, "partidas/vbc/juego-form-search.html", context={"search_form": form})
+
 
 # login / logout / Editar usuario / Crear Usuario 1:50
 
