@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Sistema, Juego, Reserva
+
+admin.site.register(Sistema)
+admin.site.register(Juego)
+admin.site.register(Reserva)
