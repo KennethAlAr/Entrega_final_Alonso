@@ -5,18 +5,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} xxxxx {% endblock title %}</title>
-    <!-- Bootstrap CSS CDN (Bootstrap 4 used as an example) -->
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="{% static 'partidas/css/bootstrap.css' %}">
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/partidas">Partidas</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav">
+                <!-- Dropdown for Reserva -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkReserva" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Reservas
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkReserva">
+                        <a class="dropdown-item" href="">Todas las Reservas</a>
+                        <a class="dropdown-item" href="">Crear Reserva</a>
+                        <a class="dropdown-item" href="">Buscar Reserva por jugador</a>
+                    </div>
+                </li>
+                <!-- Dropdown for Juego -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkJuego" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Juegos
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkJuego">
+                        <a class="dropdown-item" href="{% url 'juego-list' %}">Todos los Juegos</a>
+                        <a class="dropdown-item" href="{% url 'juego-create' %}">Crear Juego</a>
+                        <a class="dropdown-item" href="">Buscar Juego</a>
+                    </div>
+                </li>
+            </ul>
+            {% endif %}
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'editar-perfil' %}">{{ user }}</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'crear-usuario' %}">Crear Usuario</a>
+                    </li>
+                {% endif %}
+            </ul>
         </div>
     </nav>
     <!-- Main content -->
