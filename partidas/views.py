@@ -157,8 +157,56 @@ def juego_search_view(request):
         
 #CRUD RESERVAS
 
-class ReservasListView(LoginRequiredMixin, ListView):
-    pass
+class ReservaListView(LoginRequiredMixin, ListView):
+    model = Reserva
+    template_name = "partidas/vbc/reserva-list.html"
+    context_object_name = "todas_las_reservas"
+
+    def get_queryset(self):
+        return Reserva.objects.filter(jugador=self.request.user)
+
+class ReservaDetailView(LoginRequiredMixin, DetailView):
+    model = Reserva
+    template_name = "partidas/vbc/reserva-detail.html"
+    context_object_name = "reserva"
+
+class ReservaDeleteView(LoginRequiredMixin, DeleteView):
+    model = Reserva
+    template_name = "partidas/vbc/reserva-confirm-delete.html"
+    success_url = reverse_lazy("reserva-list")
+
+class ReservaUpdateView(LoginRequiredMixin, UpdateView):
+    model = Reserva
+    template_name = "partidas/vbc/reserva-form.html"
+    fields = [
+        "juego",
+        "raza",
+        "clase",
+        "experiencia",
+        "descripcion",
+        ]
+    context_object_name = "reserva"
+    success_url = reverse_lazy("reserva-list")
+
+    def form_valid(self, form):
+        form.instance.jugador = self.request.user
+        return super().form_valid(form)
+
+class ReservaCreateView(LoginRequiredMixin, CreateView):
+    model = Reserva
+    template_name = "partidas/vbc/reserva-form.html"
+    fields = [
+        "juego",
+        "raza",
+        "clase",
+        "experiencia",
+        "descripcion",
+        ]
+    success_url = reverse_lazy("reserva-list")
+
+    def form_valid(self, form):
+        form.instance.jugador = self.request.user
+        return super().form_valid(form)
 
 # login / logout / Editar usuario / Crear Usuario 1:50
 

@@ -1,0 +1,56 @@
+{% extends 'partidas/base.html' %}
+
+{% block title %} Listado de Reservas {% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <h2 class="mb-0">Reservas</h2>
+            </div>
+            <div>
+                <a href="{% url 'reserva-create' %}" class="btn btn-success mr-2">Crear Reserva</a>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Partida</th>
+                    <th scope="col">Sistema de Juego</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Hora de Inicio</th>
+                    <th scope="col">Hora de Fin</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if todas_las_reservas %}
+                {% for reserva in todas_las_reservas %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ reserva.juego.nombre }}</td>
+                    <td>{{ reserva.juego.sistema_de_juego }}</td>
+                    <td>{{ reserva.juego.fecha }}</td>
+                    <td>{{ reserva.juego.hora_inicio }}</td>
+                    <td>{{ reserva.juego.hora_fin }}</td>
+                    <td class="d-flex align-items-center">
+                        <a href="{% url 'reserva-detail' reserva.id %}" class="btn btn-primary btn-sm mr-1">Ver</a>
+                        <a href="{% url 'reserva-update' reserva.id %}" class="btn btn-primary btn-sm mr-1">Editar</a>
+                        <a href="{% url 'juego-detail' reserva.juego.id %}" class="btn btn-warning btn-sm mr-1">Juego</a>
+                        <a href="{% url 'reserva-delete' reserva.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="7">No hay Reservas.</td>
+                </tr>
+                {% endif %}
+
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'partidas/base.html' %}
+
+{% block title %}Detalle de la Reserva{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="text-right mb-3">
+                    <a href="#" class="btn btn-primary" onclick="history.back()">Volver</a>
+                </div>
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        Detalle de la Reserva
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ reserva.juego }}</h5>
+                        <h6 class="card-text">{{ reserva.jugador }}</h6>
+                        <p class="card-text">Raza: {{ reserva.raza }}</p>
+                        <p class="card-text">Clase: {{ reserva.clase}}</p>
+                        {% if reserva.experiencia %}
+                        <p class="card-subtitle mb-2">Con experiencia</p>
+                        {% else %}
+                        <p class="card-subtitle mb-2">Sin experiencia</p>
+                        {% endif %}
+                        <p class="card-text">Fecha: {{ reserva.juego.fecha | date:"d/m/Y" }}</p>
+                        <p class="card-text">Hora de inicio: {{ reserva.juego.hora_inicio | date:"H:i" }}</p>
+                        <p class="card-text">Hora de fin: {{ reserva.juego.hora_fin | date:"H:i" }}</p>
+                        <p class="card-text">Descripción: {{ reserva.descripcion }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

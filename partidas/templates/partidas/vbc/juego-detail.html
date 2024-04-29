@@ -47,6 +47,9 @@
                                 <td>{{ reserva.raza }}</td>
                                 <td>{{ reserva.clase }}</td>
                                 <td>{{ reserva.get_experiencia_display }}</td>
+                                <td class="d-flex align-items-center">
+                                    <a href="{% url 'reserva-detail' reserva.id %}" class="btn btn-primary btn-sm mr-1">Ver</a>
+                                </td>
                             </tr>
                             {% empty %}
                             <tr>

@@ -18,6 +18,11 @@ from .views import (
     SistemaDeleteView,
     SistemaCreateView,
     sistema_search_view,
+    ReservaListView,
+    ReservaDetailView,
+    ReservaDeleteView,
+    ReservaUpdateView,
+    ReservaCreateView,
 )
 
 urlpatterns = [
@@ -33,6 +38,11 @@ urlpatterns = [
     path("sistema/<int:pk>/detail/", SistemaDetailView.as_view(), name="sistema-detail"),
     path("sistema/<int:pk>/update/", SistemaUpdateView.as_view(), name="sistema-update"),
     path("sistema/<int:pk>/delete/", SistemaDeleteView.as_view(), name="sistema-delete"),
+    path("reserva/list/", ReservaListView.as_view(), name="reserva-list"),
+    path("reserva/create/", ReservaCreateView.as_view(), name="reserva-create"),
+    path("reserva/<int:pk>/detail/", ReservaDetailView.as_view(), name="reserva-detail"),
+    path("reserva/<int:pk>/update/", ReservaUpdateView.as_view(), name="reserva-update"),
+    path("reserva/<int:pk>/delete/", ReservaDeleteView.as_view(), name="reserva-delete"),
     path("sistema/buscar/", sistema_search_view, name="sistema-search"),
     path("login/", user_login_view, name='login'),
     path("logout/", user_logout_view, name='logout'),
