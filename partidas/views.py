@@ -70,9 +70,19 @@ def sistema_search_view(request):
         form = SistemaSearchForm(request.POST)
         if form.is_valid():
             nombre_de_sistema = form.cleaned_data["nombre"]
-            sistemas_encontrados = Sistema.objects.filter(nombre=nombre_de_sistema).all()
+            tipo_dado = form.cleaned_data["dado"]
+            tipo_base = form.cleaned_data["base"]
+
+            sistemas_encontrados = Sistema.objects.filter(nombre__icontains=nombre_de_sistema)
+
+            if tipo_dado:
+                sistemas_encontrados = sistemas_encontrados.filter(dado = tipo_dado)
+
+            if tipo_base:
+                sistemas_encontrados = sistemas_encontrados.filter(base = tipo_base)
+
             contexto = {"todos_los_sistemas": sistemas_encontrados}
-            return render(request, "partidas/vbc/sistema-list.html", contexto)
+            return render(request, "partidas/vbc/sistema-list-search.html", contexto)
         else:
             return render(request, "partidas/vbc/sistema-form-search.html", context={"search_form": form})
 
@@ -149,9 +159,27 @@ def juego_search_view(request):
         form = JuegoSearchForm(request.POST)
         if form.is_valid():
             nombre_de_juego = form.cleaned_data["nombre"]
-            juegos_encontrados = Juego.objects.filter(nombre=nombre_de_juego).all()
+            solo_disponibles = form.cleaned_data["disponible"]
+            jugadores_minimos = form.cleaned_data["jugadores_minimos"]
+            sistema = form.cleaned_data["sistema"]
+            fecha = form.cleaned_data["fecha"]
+
+            juegos_encontrados = Juego.objects.filter(nombre__icontains=nombre_de_juego)
+
+            if solo_disponibles:
+                juegos_encontrados = juegos_encontrados.filter(disponible=True)
+
+            if jugadores_minimos:
+                juegos_encontrados = juegos_encontrados.filter(numero_de_jugadores__gte=jugadores_minimos)
+            
+            if sistema:
+                juegos_encontrados = juegos_encontrados.filter(sistema_de_juego=sistema)
+            
+            if fecha:
+                juegos_encontrados = juegos_encontrados.filter(fecha=fecha)
+
             contexto = {"todos_los_juegos": juegos_encontrados}
-            return render(request, "partidas/vbc/juego-list.html", contexto)
+            return render(request, "partidas/vbc/juego-list-search.html", contexto)
         else:
             return render(request, "partidas/vbc/juego-form-search.html", context={"search_form": form})
         

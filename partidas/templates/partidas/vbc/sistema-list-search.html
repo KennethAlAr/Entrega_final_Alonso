@@ -1,0 +1,53 @@
+{% extends 'partidas/base.html' %}
+
+{% block title %} Listado de Sistemas {% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <h2 class="mb-0">Sistemas</h2>
+            </div>
+            <div>
+                <a href="{% url 'sistema-list' %}" class="btn btn-primary">Todos los Sistemas</a>
+                <a href="{% url 'sistema-search' %}" class="btn btn-primary">Buscar Sistema</a>
+                <a href="{% url 'sistema-create' %}" class="btn btn-success mr-2">Crear Sistema</a>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Sistema</th>
+                    <th scope="col">Tipo de dado</th>
+                    <th scope="col">Base del juego</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if todos_los_sistemas %}
+                {% for sistema in todos_los_sistemas %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ sistema.nombre }}</td>
+                    <td>{{ sistema.get_dado_display }}</td>
+                    <td>{{ sistema.get_base_display }}</td>
+                    <td>
+                        <a href="{% url 'sistema-detail' sistema.id %}" class="btn btn-primary btn-sm">Ver</a>
+                        <a href="{% url 'sistema-update' sistema.id %}" class="btn btn-primary btn-sm">Editar</a>
+                        <a href="{% url 'sistema-delete' sistema.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="7">No hay Sistemas disponibles.</td>
+                </tr>
+                {% endif %}
+
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
