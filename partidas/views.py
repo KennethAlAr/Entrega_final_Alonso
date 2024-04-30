@@ -1,5 +1,5 @@
-from .models import Juego, Reserva, Sistema
-from .forms import UserEditForm, JuegoSearchForm, SistemaSearchForm
+from .models import Juego, Reserva, Sistema, Avatar
+from .forms import UserEditForm, JuegoSearchForm, SistemaSearchForm, AvatarCreateForm
 from django import forms
 from django.urls import reverse_lazy
 from django.views.generic import(
@@ -52,14 +52,14 @@ class SistemaUpdateView(LoginRequiredMixin, UpdateView):
 
 class SistemaCreateView(LoginRequiredMixin, CreateView):
     model = Sistema
-    template_name = "partidas/vbc/juego-form.html"
+    template_name = "partidas/vbc/sistema-form.html"
     fields = [
         "nombre",
         "dado",
         "base",
         "descripcion"
         ] 
-    success_url = reverse_lazy("juego-list")
+    success_url = reverse_lazy("sistema-list")
 
 @login_required
 def sistema_search_view(request):
@@ -110,8 +110,8 @@ class JuegoUpdateView(LoginRequiredMixin, UpdateView):
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.fields['fecha'].widget = forms.DateInput(attrs={'type': 'date'})
-        form.fields['hora_inicio'].widget = forms.TimeInput(attrs={'type': 'time'})
-        form.fields['hora_fin'].widget = forms.TimeInput(attrs={'type': 'time'})
+        form.fields['hora_inicio'].widget = forms.TimeInput(attrs={'type': 'time', 'step': 60})
+        form.fields['hora_fin'].widget = forms.TimeInput(attrs={'type': 'time', 'step': 60})
         return form
 
     context_object_name = "juego"
@@ -129,13 +129,13 @@ class JuegoCreateView(LoginRequiredMixin, CreateView):
         "fecha",
         "hora_inicio",
         "hora_fin"
-        ]
+    ]
     
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.fields['fecha'].widget = forms.DateInput(attrs={'type': 'date'})
-        form.fields['hora_inicio'].widget = forms.TimeInput(attrs={'type': 'time'})
-        form.fields['hora_fin'].widget = forms.TimeInput(attrs={'type': 'time'})
+        form.fields['hora_inicio'].widget = forms.TimeInput(attrs={'type': 'time', 'step': 60})
+        form.fields['hora_fin'].widget = forms.TimeInput(attrs={'type': 'time', 'step': 60})
         return form
     
     success_url = reverse_lazy("juego-list")
@@ -208,7 +208,7 @@ class ReservaCreateView(LoginRequiredMixin, CreateView):
         form.instance.jugador = self.request.user
         return super().form_valid(form)
 
-# login / logout / Editar usuario / Crear Usuario 1:50
+# login / logout / Editar usuario / Crear Usuario
 
 def user_login_view(request):
     if request.method == "GET":
@@ -248,3 +248,22 @@ def user_creation_view(request):
             return redirect("home")
     
     return render(request, "partidas/crear-usuario.html", {"form": form})
+
+# Avatar para usuario
+
+def avatar_view(request):
+    if request.method == "GET":
+        contexto = {"avatar": AvatarCreateForm()}
+    else:
+        form = AvatarCreateForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.cleaned_data["image"]
+            avatar_existente = Avatar.objects.filter(user=request.user)
+            avatar_existente.delete()
+            nuevo_avatar = Avatar(image=image, user=request.user)
+            nuevo_avatar.save()
+            return redirect("home")
+        else:
+            contexto = {"avatar": form}
+
+    return render(request, "partidas/avatar-create.html", context=contexto)

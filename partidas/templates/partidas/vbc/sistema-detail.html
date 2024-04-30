@@ -13,8 +13,8 @@
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">{{ sistema.nombre }}</h5>
-                        <p class="card-text">Tipo de dado: {{ sistema.dado }}</p>
-                        <p class="card-text">Base del juego: {{ sistema.base }}</p>
+                        <p class="card-text">Tipo de dado: {{ sistema.get_dado_display }}</p>
+                        <p class="card-text">Base del juego: {{ sistema.get_base_display }}</p>
                         <p class="card-text">Descripción: {{ sistema.descripcion | default:"No proporcionado" }}</p>
                         <a href="#" class="btn btn-primary" onclick="history.back()">Volver</a>
                     </div>

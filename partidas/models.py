@@ -47,8 +47,8 @@ class Juego(models.Model):
     sistema_de_juego = models.ForeignKey(Sistema, on_delete=models.CASCADE, related_name='sistema_de_juego')
     descripcion = models.TextField(blank=True, null=True)
     fecha = models.DateField(default=timezone.now)
-    hora_inicio = models.TimeField(default=timezone.now)
-    hora_fin = models.TimeField(default=timezone.now)
+    hora_inicio = models.TimeField(default=timezone.now().replace(second=0, microsecond=0))
+    hora_fin = models.TimeField(default=timezone.now().replace(second=0, microsecond=0))
 
     def __str__(self):
         return f"{self.nombre}"
@@ -66,3 +66,10 @@ class Reserva(models.Model):
 
     def __str__(self):
         return f"¡{self.jugador} se ha unido a {self.juego}!"
+
+class Avatar(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="avatar")
+    image = models.ImageField(upload_to="avatars/")
+
+    def __str__(self):
+        return f"Avatar de {self.user.username}"

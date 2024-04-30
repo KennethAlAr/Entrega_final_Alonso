@@ -32,9 +32,9 @@
                     <th scope="row">{{ forloop.counter }}</th>
                     <td>{{ reserva.juego.nombre }}</td>
                     <td>{{ reserva.juego.sistema_de_juego }}</td>
-                    <td>{{ reserva.juego.fecha }}</td>
-                    <td>{{ reserva.juego.hora_inicio }}</td>
-                    <td>{{ reserva.juego.hora_fin }}</td>
+                    <td>{{ reserva.juego.fecha|date:"d/m/Y" }}</td>
+                    <td>{{ reserva.juego.hora_inicio|time:"H:i" }}</td>
+                    <td>{{ reserva.juego.hora_fin|time:"H:i" }}</td>
                     <td class="d-flex align-items-center">
                         <a href="{% url 'reserva-detail' reserva.id %}" class="btn btn-primary btn-sm mr-1">Ver</a>
                         <a href="{% url 'reserva-update' reserva.id %}" class="btn btn-primary btn-sm mr-1">Editar</a>

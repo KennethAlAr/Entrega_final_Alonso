@@ -30,8 +30,8 @@
                 <tr>
                     <th scope="row">{{ forloop.counter }}</th>
                     <td>{{ sistema.nombre }}</td>
-                    <td>{{ sistema.dado }}</td>
-                    <td>{{ sistema.base }}</td>
+                    <td>{{ sistema.get_dado_display }}</td>
+                    <td>{{ sistema.get_base_display }}</td>
                     <td>
                         <a href="{% url 'sistema-detail' sistema.id %}" class="btn btn-primary btn-sm">Ver</a>
                         <a href="{% url 'sistema-update' sistema.id %}" class="btn btn-primary btn-sm">Editar</a>
