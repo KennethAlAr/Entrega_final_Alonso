@@ -24,10 +24,12 @@ from .views import (
     UserUpdateView,
     user_creation_view,
     avatar_view,
+    about_view,
 )
 
 urlpatterns = [
     path("", home_view, name="home"),
+    path("about/", about_view, name="about"),
     path("juego/list/", JuegoListView.as_view(), name="juego-list"),
     path("juego/create/", JuegoCreateView.as_view(), name="juego-create"),
     path("juego/<int:pk>/detail/", JuegoDetailView.as_view(), name="juego-detail"),

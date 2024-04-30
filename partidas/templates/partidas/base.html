@@ -6,6 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} xxxxx {% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'partidas/css/bootstrap.css' %}">
+    <style>
+        /* Botón Acerca de mí */
+        .about-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            color: #6c757d;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .about-btn:hover {
+            text-decoration: none;
+            color: #343a40;
+        }
+    </style>
 </head>
 <body>
     <!-- Navbar -->
@@ -17,7 +34,7 @@
             <ul class="navbar-nav">
                 <!-- Botón de Home -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    <a class="nav-link font-weight-bold" href="{% url 'home' %}">Roll for Initiative</a>
                 </li>
                 {% if user.is_authenticated %}
                 <!-- Dropdown for Sistema -->
@@ -81,7 +98,11 @@
                         <a class="nav-link" href="{% url 'crear-usuario' %}">Crear Usuario</a>
                     </li>
                 {% endif %}
+                <li>
+                    <a href="{% url 'about' %}" class="about-btn">Acerca de mí</a>
+                </li>
             </ul>
+
         </div>
     </nav>
     <!-- Main content -->

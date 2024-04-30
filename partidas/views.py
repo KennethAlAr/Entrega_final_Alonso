@@ -267,3 +267,8 @@ def avatar_view(request):
             contexto = {"avatar": form}
 
     return render(request, "partidas/avatar-create.html", context=contexto)
+
+# About
+
+def about_view(request):
+    return render(request, "partidas/about.html")
