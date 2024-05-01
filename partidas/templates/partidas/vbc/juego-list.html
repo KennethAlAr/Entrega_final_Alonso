@@ -10,7 +10,7 @@
                 <h2 class="mb-0">Partidas</h2>
             </div>
             <div>
-                <a href="{% url 'juego-search' %}" class="btn btn-primary">Buscar Juego</a>
+                <a href="{% url 'juego-search' %}" class="btn btn-primary mr-2">Buscar Juego</a>
                 <a href="{% url 'juego-create' %}" class="btn btn-success mr-2">Crear Juego</a>
             </div>
         </div>
@@ -41,18 +41,19 @@
                     <td>{{ juego.fecha|date:"d/m/Y" }}</td>
                     <td>{{ juego.hora_inicio|time:"H:i" }}</td>
                     <td>
-                        <a href="{% url 'juego-detail' juego.id %}" class="btn btn-primary btn-sm">Ver</a>
-                        <a href="{% url 'juego-update' juego.id %}" class="btn btn-primary btn-sm">Editar</a>
-                        <a href="{% url 'juego-delete' juego.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                        <div class="d-flex align-items-center">
+                            <a href="{% url 'juego-detail' juego.id %}" class="btn btn-primary btn-sm mr-1">Ver</a>
+                            <a href="{% url 'juego-update' juego.id %}" class="btn btn-primary btn-sm mr-1">Editar</a>
+                            <a href="{% url 'juego-delete' juego.id %}" class="btn btn-danger btn-sm ">Eliminar</a>
+                        </div>
                     </td>
-                    {% endfor %}
                 </tr>
+                {% endfor %}
                 {% else %}
                 <tr>
                     <td colspan="7">No hay Partidas disponibles.</td>
                 </tr>
                 {% endif %}
-
             </tbody>
         </table>
     </div>
