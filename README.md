@@ -1,12 +1,12 @@
 # Entrega Final
-### alumno: Kenneth Alonso Arce
+### Alumno: Kenneth Alonso Arce
 
 # Roll for Initiative
 ### La web "Roll for Initiative" es una web para crear sistemas y salas de juego para juegos de rol de mesa:
 
 ## Instrucciones
 
-1. Abrir el enlace http://localhost:8000/partidas/ [Roll for Initiative](http://localhost:8000/partidas/).
+1. Abrir el enlace [Roll for Initiative](http://localhost:8000/partidas/).
 
 2. Si no estamos logueados, en la parte superior aparecen los siguientes botones:
     - En la parte izquierda el botón de "Roll for Inititative" que sirve como botón "home" y nos lleva a la página principal.
@@ -86,7 +86,7 @@
 4. El avatar hace las veces de botón para editar el avatar. En este caso nos envía al mismo formulario que el botón de "Añadir Avatar", con la distinción que, en este caso, antes de añadir el nuevo avatar, borra el anterior.
 
 ## Lógica de administración:
-1. En la página http://localhost:8000/admin/ se encuentra la página del [Administrador](http://localhost:8000/admin/).
+1. Podemos administrar la página de Roll for Initiative en la página del [Administrador](http://localhost:8000/admin/).
 2.  - User: admin 
     - Password: admin1234
 3. El administración tiene poderes para hacer CRUD en los usuarios, los avatares, los juegos, las reservas y los sistemas.
