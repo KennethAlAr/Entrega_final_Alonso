@@ -6,7 +6,7 @@
 
 ## Instrucciones
 
-1. Abrir el enlace [Roll for Initiative](http://localhost:8000/partidas/).
+1. Abrir el enlace [Roll for Initiative](http://localhost:8000).
 
 2. Si no estamos logueados, en la parte superior aparecen los siguientes botones:
     - En la parte izquierda el botón de "Roll for Inititative" que sirve como botón "home" y nos lleva a la página principal.
